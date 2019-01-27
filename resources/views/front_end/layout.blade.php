@@ -135,10 +135,10 @@
 			<div class = "bottom">
 				<div class="links">
 					<ul>
-						<li><a href="https://plus.google.com/u/0/100176714962618354106"><img src="">Google</a></li>
-						<li><a href="https://www.facebook.com/mih133"><img src="">Facebook</a></li>
-						<li><a href="https://www.instagram.com/iammimranh/?hl=en"><img src="">Instagram</a></li>
-						<li><a href="https://github.com/imranhcseru"><img src="">Github</a></li>
+						<li><a href="https://plus.google.com/u/0/100176714962618354106" target="_blank"><img src="">Google</a></li>
+						<li><a href="https://www.facebook.com/mih133" target="_blank"><img src="">Facebook</a></li>
+						<li><a href="https://www.instagram.com/iammimranh/?hl=en" target="_blank"><img src="">Instagram</a></li>
+						<li><a href="https://github.com/imranhcseru" target="_blank"><img src="">Github</a></li>
 					</ul>
 				</div>
 				<div class="copyright">
