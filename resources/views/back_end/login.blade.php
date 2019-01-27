@@ -57,10 +57,15 @@
                     <h3 style="color:red">
 						<?php
 							 $login_failed = Session::get('login_failed');
+							 $login_first = Session::get('login_first');
 							 if($login_failed){
 								 echo($login_failed);
 								 Session::put('login_failed',null);
 							 }
+							 if($login_first){
+								echo($login_first);
+								Session::put('login_first',null);
+							}
 						?>
 					</h3>
 					<form class="form-horizontal" action="{{url('/admin/checkadmin')}}" method="post">
