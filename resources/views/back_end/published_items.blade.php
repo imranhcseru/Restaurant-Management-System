@@ -18,6 +18,8 @@
 							  <tr>
                                   <th>Item</th>
 								  <th>Category</th>
+								  <th>Available Product</th>
+								  <th>Add Product</th>
                                   <th>Create Date</th>
                                   <th>Added By</th>
 								  <th>Actions</th>
@@ -28,14 +30,20 @@
 							<tr>
                                 <td>{{$item->item_name}}</td>
 								<td>{{$item->category}}</td>
+								<td>{{$item->available}}</td>
+								<td>
+									<form action="{{url('/admin/addproduct/'.$item->id)}}" method = "post">
+										{{csrf_field()}}
+										<input type="text" name="add_product">
+										<button class="btn btn-danger" type="submit" >
+											<i>Add Product</i> 
+										</button>
+								</td>
                                 <td>{{$item->create_date}}</td>
                                 <td>{{$item->added_by}}</td>
 								<td>
 									<a class="btn btn-info" href="{{('admin/unpublishitem')}}" onclick="return confirm('Are you sure you want to Unpublish this Item?');">
 										<i>Unpublish</i>  
-									</a>
-									<a class="btn btn-danger" href="{{('admin/addproduct')}}" >
-										<i>Add Product</i> 
 									</a>
 								</td>
                             </tr>

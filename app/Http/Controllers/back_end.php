@@ -151,7 +151,18 @@ class back_end extends Controller
         return view('back_end.published_items')->with('items',$items);
     }
 
-    
+    public function add_product(Request $request,$item_id){
+        $add_product = $request->add_product;
+        print_r($add_product);
+        $item = DB::table('tbl_item')->where('id',$item_id)->first();
+        $available = $item->available;
+        if($available<0 || $available == null)
+            $available = 0;
+        $available = $available + $add_product;
+        DB::table('tbl_item')->update(['available'=>$available]);
+        Session::put('add_success','Product number Successfully Added');
+        return redirect()->back();
+    }
 
     public function all_orders(){
         $all_orders = DB::table('tbl_order')->orderBy('date','DESC')->paginate(200);

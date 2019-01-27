@@ -41,6 +41,7 @@ Route::get('/admin/allitems','back_end@all_items');
 Route::get('/admin/deleteitem/{item_id}','back_end@delete_item');
 Route::get('/admin/edititem/{item_id}','back_end@edit_item');
 Route::get('/admin/publisheditems','back_end@published_items');
+Route::post('/admin/addproduct/{item_id}','back_end@add_product');
 Route::get('/admin/draftitems','back_end@draft_items');
 Route::get('/admin/allorders','back_end@all_orders');
 Route::get('/admin/servedorders','back_end@served_orders');
