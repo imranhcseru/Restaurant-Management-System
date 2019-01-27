@@ -21,11 +21,17 @@
 							  <div class="controls">
 								<input type="text" class="span6 typeahead" id="typeahead"  name = "item_name">
 							  </div>
-                            </div>             
-                            <div class="control-group">
+                </div>             
+              <div class="control-group">
 							  <label class="control-label" for="typeahead">Price</label>
 							  <div class="controls">
 								<input type="text" class="span6 typeahead" id="typeahead"  name = "price">
+							  </div>
+							</div>
+							<div class="control-group">
+							  <label class="control-label" for="typeahead">Available</label>
+							  <div class="controls">
+								<input type="text" class="span6 typeahead" id="typeahead"  name = "available">
 							  </div>
 							</div>
 							<div class="control-group">

@@ -10,7 +10,10 @@ session_start();
 class back_end extends Controller
 {
     public function home(){
-        return view('back_end.home');
+        $type = 'published';
+        $data['items'] = DB::table('tbl_item')->where('type',$type)->limit(20)->get();
+        $data['unserved_orders'] = DB::table('tbl_order')->where('type','unserved')->orderBy('date','DESC')->paginate(20);
+        return view('back_end.home')->with('data',$data);
     }
 
     public function login(){
@@ -68,9 +71,6 @@ class back_end extends Controller
         DB::table('tbl_category')->insert(array('category'=>$data['category'],'image'=>$data['image'],'date'=>$data['date'],'added_by'=>$data['addedby']));
         return Redirect::to('/admin/categories');
     }
-    public function edit_category(){
-
-    }
 
     public function delete_category($category_id){
         DB::table('tbl_category')->where('id',$category_id)->delete();
@@ -100,6 +100,7 @@ class back_end extends Controller
         $data['admin_id'] = null;  
         $data['addedby'] = Session::get('user_name');
         $data['category'] = $request->category; 
+        $data['available'] = $request->available;
         $this->validate($request, [
             'item_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -114,12 +115,12 @@ class back_end extends Controller
         switch($request->submit) {
             case 'publish': 
                 $data['type'] = "published";
-                DB::table('tbl_item')->insert(array('item_name'=>$data['item_name'],'price'=>$data['price'],'image'=>$data['image'],'item_desc'=>$data['item_desc'],'type' => $data['type'],'category'=>$data['category'], 'publish_date' => $data['date'],'create_date' => $data['date'],'added_by'=>$data['addedby']));
+                DB::table('tbl_item')->insert(array('item_name'=>$data['item_name'],'price'=>$data['price'],'available'=>$data['available'],'image'=>$data['image'],'item_desc'=>$data['item_desc'],'type' => $data['type'],'category'=>$data['category'], 'publish_date' => $data['date'],'create_date' => $data['date'],'added_by'=>$data['addedby']));
                 break;
             
             case 'draft':
                 $data['type'] = "draft";
-                DB::table('tbl_item')->insert(array('item_name'=>$data['item_name'],'price'=>$data['price'],'image'=>$data['image'],'item_desc'=>$data['item_desc'],'type' => $data['type'],'category'=>$data['category'], 'publish_date' => null,'create_date' => $data['date'],'added_by'=>$data['addedby'])); 
+                DB::table('tbl_item')->insert(array('item_name'=>$data['item_name'],'price'=>$data['price'],'available'=>$data['available'],'image'=>$data['image'],'item_desc'=>$data['item_desc'],'type' => $data['type'],'category'=>$data['category'], 'publish_date' => null,'create_date' => $data['date'],'added_by'=>$data['addedby'])); 
                 break;
         }
         return Redirect::to('admin/allitems');
@@ -178,8 +179,8 @@ class back_end extends Controller
     }
 
     public function published_items(){
-        $category = 'published';
-        $items = DB::table('tbl_item')->where('type',$category)->get();
+        $type = 'published';
+        $items = DB::table('tbl_item')->where('type',$type)->get();
         return view('back_end.published_items')->with('items',$items);
     }
 
