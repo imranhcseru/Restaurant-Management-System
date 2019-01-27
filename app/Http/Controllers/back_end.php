@@ -151,7 +151,11 @@ class back_end extends Controller
         return view('back_end.published_items')->with('items',$items);
     }
 
-    public function add_product(Request $request,$item_id){
+    public function add_supply($item_id){
+        $item = DB::table('tbl_item')->where('id',$item_id)->first();
+        return view('back_end.add_supply')->with('item',$item);
+    }
+    public function update_supply(Request $request,$item_id){
         $add_product = $request->add_product;
         print_r($add_product);
         $item = DB::table('tbl_item')->where('id',$item_id)->first();
@@ -159,11 +163,26 @@ class back_end extends Controller
         if($available<0 || $available == null)
             $available = 0;
         $available = $available + $add_product;
-        DB::table('tbl_item')->update(['available'=>$available]);
-        Session::put('add_success','Product number Successfully Added');
+        DB::table('tbl_item')->where('id',$item_id)->update(['available'=>$available]);
+        Session::put('supply_success','New Supply Successfully Added');
         return redirect()->back();
     }
 
+    public function change_type($item_id){
+        $item = DB::table('tbl_item')->where('id',$item_id)->first();
+        $date = date('Y-m-d');
+        if($item->type == 'draft'){
+            $change_type = 'published';
+            $publish_date = $date;
+        }
+        else{
+            $change_type = 'draft';
+            $publish_date = null;
+        }
+        DB::table('tbl_item')->where('id',$item_id)->update(['type'=>$change_type,'publish_date'=>$publish_date]);
+        Session::put('change_message','Item Type Successfully Changed');
+        return redirect()->back();
+    }
     public function all_orders(){
         $all_orders = DB::table('tbl_order')->orderBy('date','DESC')->paginate(200);
         return view('back_end.all_orders')->with('all_orders',$all_orders);

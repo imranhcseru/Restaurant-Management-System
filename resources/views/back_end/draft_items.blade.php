@@ -13,11 +13,21 @@
                         <h2><i class="halflings-icon edit"></i><span class="break"></span>Draft Items</h2>
                     </div>
 					<div class="box-content">
+					<h3 style="color:green">
+							<?php
+									$change_message = Session::get('change_message');
+									if($change_message){
+										echo($change_message);
+										Session::put('change_message',null);
+									}
+							?>
+						</h3>
 						<table class="table ">
 						  <thead>
 							  <tr>
                                   <th>Item</th>
 								  <th>Category</th>
+								  <th>Available Product</th>
                                   <th>Create Date</th>
                                   <th>Added By</th>
 								  <th>Actions</th>
@@ -28,14 +38,15 @@
 							<tr>
                                 <td>{{$item->item_name}}</td>
 								<td>{{$item->category}}</td>
+								<td>{{$item->available}}</td>
                                 <td>{{$item->create_date}}</td>
                                 <td>{{$item->added_by}}</td>
-								<td>
-									<a class="btn btn-info" href="{{('admin/publishitem')}}" onclick="return confirm('Are you sure you want to Publish this Item?');">
-										<i>Publish</i>  
+								<td class="center">
+									<a class="btn btn-info" href="{{url('/admin/addsupply/'.$item->id)}}">
+										<i>Add Supply</i>  
 									</a>
-									<a class="btn btn-danger" href="{{('admin/addproduct')}}" >
-										<i>Add Product</i> 
+									<a class="btn btn-danger" href="{{url('/admin/changetype/'.$item->id)}}" onclick="return confirm('Are you sure you want to Publish this Item?');">
+										<i>Publish</i> 
 									</a>
 								</td>
                             </tr>
