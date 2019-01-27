@@ -137,7 +137,39 @@ class back_end extends Controller
     }
 
     public function edit_item($item_id){
+        $data['item'] = DB::table('tbl_item')->where('id',$item_id)->first();
+        $data['categories'] = DB::table('tbl_category')->get();
+        return view('back_end.edit_item')->with('data',$data);
+    }
 
+    public function update_item(Request $request,$item_id){
+        $item = DB::table('tbl_item')->where('id',$item_id)->first();
+        $data = array();
+        $data['item_name'] = $request->item_name;
+        $data['price'] = $request->price;
+        $data['item_desc'] = $request->item_desc;
+        $data['date'] =  date('Y-m-d');  
+        $data['addedby'] = Session::get('user_name');
+        $data['category'] = $request->category; 
+        // $this->validate($request, [
+        //     'item_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
+        
+        if ($request->hasFile('item_img')) {
+            $image = $request->file('item_img');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/upload');
+            $image->move($destinationPath, $name);
+        }
+        else{
+            $name = $item->image;
+        }
+        $data['image'] = $name;
+        
+        DB::table('tbl_item')->where('id',$item_id)->update(['item_name'=>$data['item_name'],'price'=>$data['price'],'image'=>$data['image'],'item_desc'=>$data['item_desc'],'category'=>$data['category'], 'publish_date' => $data['date'],'update_date' => $data['date'],'added_by'=>$data['addedby']]);
+        Session::put('update_item','Item Successfully Updated');
+        return Redirect::to('admin/allitems');
+       
     }
     public function draft_items(){
         $category = 'draft';
@@ -199,9 +231,22 @@ class back_end extends Controller
     }
 
     public function serve_item($order_id){
-        DB::table('tbl_order')->where('id',$order_id)->update(['type'=>'served']);
-        Session::put('serve_success','Item Served Successfully');
-        return redirect()->back();
+        $order = DB::table('tbl_order')->where('id',$order_id)->first();
+        $item_id = $order->item_id;
+        $order_quantity = $order->quantity;
+        $item = DB::table('tbl_item')->where('id',$item_id)->first();
+        $available = $item->available;
+        if($available<$order_quantity){
+            Session::put('serve_failed','Available item is not enough to serve');
+            return redirect()->back();
+        }
+        else{
+            $available = $available - $order_quantity;
+            DB::table('tbl_item')->where('id',$item_id)->update(['available'=>$available]);
+            DB::table('tbl_order')->where('id',$order_id)->update(['type'=>'served']);
+            Session::put('serve_success','Item Served Successfully');
+            return redirect()->back();
+        }
     }
     public function add_admin(){
         return view('back_end.add_admin');

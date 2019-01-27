@@ -40,6 +40,7 @@ Route::post('/admin/storeitem','back_end@store_item');
 Route::get('/admin/allitems','back_end@all_items');
 Route::get('/admin/deleteitem/{item_id}','back_end@delete_item');
 Route::get('/admin/edititem/{item_id}','back_end@edit_item');
+Route::post('/admin/updateitem/{item_id}','back_end@update_item');
 Route::get('/admin/publisheditems','back_end@published_items');
 Route::get('/admin/addsupply/{item_id}','back_end@add_supply');
 Route::post('/admin/updatesupply/{item_id}','back_end@update_supply');

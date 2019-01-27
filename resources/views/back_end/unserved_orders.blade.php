@@ -22,6 +22,15 @@
                             }
                         ?>
                     </h3>
+                    <h3 style="color:red">
+                        <?php
+                            $serve_failed = Session::get('serve_failed');
+                            if($serve_failed){
+                                echo($serve_failed);
+                                Session::put('serve_failed',null);
+                            }
+                        ?>
+                    </h3>
 						<table class="table ">
 						  <thead>
 							  <tr>
