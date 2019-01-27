@@ -34,6 +34,11 @@ class back_end extends Controller
         }
     }
 
+    public function logout(){
+        Session::put('user_name',null);
+        Session::put('user_email',null);
+        return Redirect::to('/admin');
+    }
     public function categories(){
         $categories = DB::table('tbl_category')->get();
         return view('back_end.categories')->with('categories',$categories);
@@ -146,9 +151,7 @@ class back_end extends Controller
         return view('back_end.published_items')->with('items',$items);
     }
 
-    public function add_admin(){
-        return view('back_end.add_admin');
-    }
+    
 
     public function all_orders(){
         $all_orders = DB::table('tbl_order')->orderBy('date','DESC')->paginate(200);
@@ -169,6 +172,13 @@ class back_end extends Controller
         DB::table('tbl_order')->where('id',$order_id)->update(['type'=>'served']);
         Session::put('serve_success','Item Served Successfully');
         return redirect()->back();
+    }
+    public function add_admin(){
+        return view('back_end.add_admin');
+    }
+
+    public function delete_admin(){
+        return view('back_end.check_password_admin');
     }
     public function store_admin(Request $request){
         $data = array();

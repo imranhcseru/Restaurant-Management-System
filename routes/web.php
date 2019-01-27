@@ -29,6 +29,7 @@ Route::get('/category/{category_name}','front_end@category_items');
 //back_end
 Route::get('/admin','back_end@login');
 Route::post('/admin/checkadmin','back_end@check_admin');
+Route::get('/admin/logout','back_end@logout');
 Route::get('/admin/home','back_end@home');
 Route::get('/admin/categories','back_end@categories');
 Route::post('/admin/addcategory','back_end@add_category');

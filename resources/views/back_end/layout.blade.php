@@ -43,7 +43,12 @@
 						
 						<li class="dropdown">
 							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-								<i class="halflings-icon white user"></i> 
+								<h3 style="color:blue;">
+									<?php
+										$user_name = Session::get('user_name');
+										echo($user_name);
+									?>
+								</h3> 
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">

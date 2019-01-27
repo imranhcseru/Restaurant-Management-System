@@ -1,7 +1,7 @@
 <?php
     $user_email = Session::get('user_email');
     if(!$user_email){
-			echo("You are not authorized to watch this section");
+			return redirect()->back();
     }
  ?>
 

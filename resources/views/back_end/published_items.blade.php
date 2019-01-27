@@ -1,7 +1,7 @@
 <?php
     $user_email = Session::get('user_email');
     if(!$user_email){
-        echo("You are not authorized to watch this section");
+        return redirect()->back();
     }
  ?>
 
@@ -30,12 +30,12 @@
 								<td>{{$item->category}}</td>
                                 <td>{{$item->create_date}}</td>
                                 <td>{{$item->added_by}}</td>
-								<td class="center">
-									<a class="btn btn-info" href="#">
-										<i class="halflings-icon white edit"></i>  
+								<td>
+									<a class="btn btn-info" href="{{('admin/unpublishitem')}}" onclick="return confirm('Are you sure you want to Unpublish this Item?');">
+										<i>Unpublish</i>  
 									</a>
-									<a class="btn btn-danger" href="#">
-										<i class="halflings-icon white trash"></i> 
+									<a class="btn btn-danger" href="{{('admin/addproduct')}}" >
+										<i>Add Product</i> 
 									</a>
 								</td>
                             </tr>
