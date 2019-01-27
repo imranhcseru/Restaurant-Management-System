@@ -12,7 +12,7 @@ class front_end extends Controller
     public function home(){
         $data = array();
         $data['categories'] = DB::table('tbl_category')->get();
-        $data['items'] = DB::table('tbl_item')->orderBy('create_date', 'DESC')->limit(3)->get();
+        $data['items'] = DB::table('tbl_item')->where('type','published')->orderBy('create_date', 'DESC')->limit(3)->get();
         $data['message'] = DB::table('tbl_message')->orderBy('date','DESC')->paginate(3);
         return view('front_end.home')->with('data',$data);
     }
@@ -20,7 +20,7 @@ class front_end extends Controller
     public function category_items($category_name){
         $data = array();
         $data['categories'] = DB::table('tbl_category')->get();
-        $data['items'] = DB::table('tbl_item')->where('category',$category_name)->get();
+        $data['items'] = DB::table('tbl_item')->where('category',$category_name)->where('type','published')->get();
         return view('front_end.category_items')->with('data',$data);
     }
 
@@ -41,7 +41,7 @@ class front_end extends Controller
         return Redirect::to('/');
     }
     public function new_recipies(){
-        $data['new_recipies'] = DB::table('tbl_item')->orderBy('create_date', 'DESC')->paginate(15);
+        $data['new_recipies'] = DB::table('tbl_item')->where('type','published')->orderBy('create_date', 'DESC')->paginate(15);
         $data['categories'] = DB::table('tbl_category')->get();
         return view('front_end.new_recipies')->with('data',$data);
     }
