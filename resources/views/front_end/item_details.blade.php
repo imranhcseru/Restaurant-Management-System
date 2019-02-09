@@ -8,6 +8,7 @@
 				</div>
 
 			<div class="item_details">
+				
                 <span ><img class="item_image" src="/upload/{{$data['item']->image}}"></span><br>
                 <span class="food_name">{{$data['item']->item_name}}</span><br>
                 <span class="price">৳ {{$data['item']->price}}</span><br>
@@ -28,7 +29,7 @@
 			<div>
 				<ul class="item_ul">
 				@foreach($data['categories'] as $category)
-					<li><div class="item"><a href="{{url('/'.$category->category)}}"><img class = "logo_cuisine" src="/upload/{{$category->image}}"><br><b>{{$category->category}}</b></a></div></li>
+					<li><div class="item"><a href="{{url('/category/'.$category->category)}}"><img class = "logo_cuisine" src="/upload/{{$category->image}}"><br><b>{{$category->category}}</b></a></div></li>
 				@endforeach
 				</ul>	
 			</div>

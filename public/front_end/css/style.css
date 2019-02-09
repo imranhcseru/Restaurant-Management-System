@@ -5,7 +5,7 @@ html {
   scroll-behavior: smooth;
 }
 header{
-	background-color: #46535e;
+	background-color: #5f24a1;
 	font-style: solid , white;
 	height: 75px;
 	width: 100%;
@@ -131,11 +131,19 @@ footer{
 	 background-size:cover;
 }
 .order{
-	color: cornflowerblue;
+	
 	font-size: 20px;
+	padding : 2px 8px;
+	background-color: mediumspringgreen;
+  	color: white;
+	
 }
+
 .order:hover{
 	color: indianred;
+}
+.order_body{
+	float:right;
 }
 .text{
 	font-size: 80px;
@@ -217,6 +225,7 @@ input{
 	margin: 5px;
 	font-size: 18px;
 	color: red;
+	
 }
 .food_name{
 	margin-top: 20px;
